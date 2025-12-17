@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lydia Wagley | Resume</title>
+
+<style>
+    :root {
+        --primary: #1f3a5f;
+        --secondary: #f4f6f8;
+        --accent: #3b82f6;
+        --text: #333;
+        --muted: #666;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: var(--secondary);
+        color: var(--text);
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border-radius: 8px;
+    }
+
+    header {
+        text-align: center;
+        border-bottom: 3px solid var(--primary);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        color: var(--primary);
+    }
+
+    header p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+    }
+
+    section {
+        margin-bottom: 35px;
+    }
+
+    section h2 {
+        font-size: 1.4rem;
+        color: var(--primary);
+        border-left: 5px solid var(--accent);
+        padding-left: 12px;
+        margin-bottom: 15px;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 6px;
+    }
+
+    .job-title {
+        font-weight: bold;
+        color: #000;
+    }
+
+    .date {
+        color: var(--muted);
+        font-size: 0.95rem;
+    }
+
+    .skills {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 8px;
+    }
+
+    .skill {
+        background: var(--secondary);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.95rem;
+    }
+
+    footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-top: 30px;
+    }
+
+    /* subtle animation */
+    section {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: all 0.6s ease;
+    }
+
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Lydia Wagley</h1>
+        <p>(832) 431-7146 • lydiawagley@gmail.com</p>
+    </header>
+
+    <section>
+        <h2>Skills</h2>
+        <div class="skills">
+            <div class="skill">Team Leadership</div>
+            <div class="skill">Problem Solving</div>
+            <div class="skill">Communication</div>
+            <div class="skill">Organization</div>
+            <div class="skill">Time Management</div>
+            <div class="skill">Personability</div>
+            <div class="skill">Creativity</div>
+            <div class="skill">Adaptability</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Work Experience</h2>
+        <p class="job-title">Hollister — Sales Associate</p>
+        <p class="date">May 2024 – August 2024 | May 2025 – August 2025</p>
+        <ul>
+            <li>Assisted customers with questions and product requests</li>
+            <li>Handled cash transactions and operated the register</li>
+            <li>Restocked merchandise and maintained store organization</li>
+            <li>Cleaned and maintained the store for a positive shopping experience</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Volunteer & Leadership Experience</h2>
+
+        <p class="job-title">Cy-Woods High School Drill Team Member</p>
+        <p class="date">March 2021 – May 2024</p>
+        <ul>
+            <li>Attended daily practices during the school year and summer</li>
+            <li>Learned and performed numerous dances for football and competition seasons</li>
+            <li>Collaborated with teammates and directors to achieve team goals</li>
+            <li>Represented the school as a positive ambassador</li>
+        </ul>
+
+        <p class="job-title">Cy-Woods High School Drill Team Chaplain</p>
+        <p class="date">April 2023 – May 2024</p>
+        <ul>
+            <li>Maintained a positive and motivating team environment</li>
+            <li>Communicated with team members, directors, and faculty to organize events</li>
+            <li>Organized and taught a weekly team Bible study</li>
+        </ul>
+
+        <p class="job-title">National Honor Society Member</p>
+        <p class="date">November 2022 – May 2024</p>
+        <ul>
+            <li>Participated in school and community service</li>
+            <li>Maintained a high GPA with no disciplinary issues</li>
+            <li>Managed time effectively to meet academic and service commitments</li>
+        </ul>
+
+        <p class="job-title">Church Youth President (Ages 16–18)</p>
+        <p class="date">August 2022 – May 2023</p>
+        <ul>
+            <li>Planned weekly faith-building activities</li>
+            <li>Encouraged unity and fellowship among class members</li>
+            <li>Coordinated lesson plans for Sunday school</li>
+        </ul>
+
+        <p class="job-title">Church-Sponsored Morning Bible Study President</p>
+        <p class="date">August 2021 – May 2022</p>
+        <ul>
+            <li>Arrived early to help prepare daily sessions</li>
+            <li>Assigned students to prayers and devotionals</li>
+            <li>Created daily activities to encourage class bonding</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+
+        <p class="job-title">Brigham Young University</p>
+        <p class="date">August 2024 – Present</p>
+        <ul>
+            <li>Full-time sophomore student</li>
+            <li>Major: Pre-Business</li>
+            <li>Engaged in diverse and challenging coursework</li>
+        </ul>
+
+        <p class="job-title">Cypress Woods High School</p>
+        <p class="date">August 2020 – May 2024</p>
+        <ul>
+            <li>Graduated Magna Cum Laude</li>
+            <li>Consistently earned Honor Roll and Distinguished Honor Roll</li>
+            <li>Active participant and strong collaborator</li>
+        </ul>
+    </section>
+
+    <footer>
+        © <span id="year"></span> Lydia Wagley
+    </footer>
+
+</div>
+
+<script>
+    // reveal sections on scroll
+    const sections = document.querySelectorAll("section");
+
+    const reveal = () => {
+        const trigger = window.innerHeight * 0.85;
+        sections.forEach(sec => {
+            const top = sec.getBoundingClientRect().top;
+            if (top < trigger) {
+                sec.classList.add("visible");
+            }
+        });
+    };
+
+    window.addEventListener("scroll", reveal);
+    reveal();
+
+    // auto-update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
+
+

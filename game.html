@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Charades: Quick Play Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS for the Whimsical Christmas Look */
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #e8fff5; 
+            font-family: 'Kalam', 'Comic Sans MS', cursive, sans-serif;
+            color: #38761d; 
+            padding: 20px;
+            
+            /* Background */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.7) 1px, transparent 3px),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.7) 1px, transparent 3px),
+                repeating-linear-gradient(45deg, #a4c7a6, #a4c7a6 2px, transparent 2px, transparent 20px),
+                repeating-linear-gradient(-45deg, #a4c7a6, #a4c7a6 2px, transparent 2px, transparent 20px);
+            background-size: 100% 100%;
+        }
+
+        h1 {
+            font-family: 'Permanent Marker', cursive;
+            color: #c0392b; 
+            margin-bottom: 20px;
+            font-size: 3em;
+            text-shadow: 4px 4px #fff8dc, 6px 6px #27ae60; 
+        }
+
+        /* Header Layout: Scoreboards and Timer */
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .scoreboard {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5em;
+            color: #38761d;
+            background-color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 4px solid #c0392b;
+            flex-grow: 1;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Highlight the active team's score */
+        .scoreboard.active-team {
+            background-color: #ffd700; 
+            color: #a00000; 
+            border: 4px solid #a00000;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            font-weight: bold;
+        }
+
+        /* Timer/Play Button Container */
+        .timer-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #fff8dc; 
+            border-radius: 15px;
+            border: 5px solid #27ae60;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Timer Styling */
+        .timer-display {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3em;
+            color: #c0392b; 
+            padding: 10px 20px 10px 0; 
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* Animation for blinking timer (End of Round) */
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .timer-display.blinking {
+            animation: blink 0.5s step-start infinite;
+        }
+        
+        /* Card Container Styling */
+        .card-container {
+            perspective: 1000px;
+            width: 380px; 
+            height: 380px; 
+            cursor: pointer; 
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+        }
+
+        /* The Flipping Card */
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Candy Cane Pattern (Red and White Stripes) */
+        .candy-cane-pattern {
+            background-image: repeating-linear-gradient(
+                45deg, 
+                #ffffff 0px, 
+                #ffffff 12px, 
+                #c0392b 12px, 
+                #c0392b 24px
+            );
+            border: 5px solid #27ae60; 
+        }
+
+        /* Front and Back of the Card */
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #006400; 
+        }
+
+        .card-face p, .card-face h2 {
+            font-size: 3.5em; 
+            line-height: 1.1;
+            margin: 0;
+            font-family: 'Permanent Marker', cursive; 
+            white-space: normal;
+        }
+
+        .card-front {
+            background-color: #f0f8ff; 
+            color: #c0392b; 
+            text-shadow: 1px 1px #e8fff5;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .instruction-text {
+            font-size: 0.5em;
+            font-weight: normal;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-family: 'Kalam', cursive;
+        }
+        
+        /* Button Container */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Game Buttons */
+        .game-button {
+            padding: 12px 25px;
+            font-size: 1.3em;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.1s;
+            font-family: inherit;
+        }
+
+        .skip-button {
+            background-color: white; 
+            color: #a00000; 
+            border: 3px solid #c0392b; 
+            box-shadow: 0 5px #c0392b;
+        }
+        
+        .timer-button {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            border-radius: 50%; 
+            font-family: 'Permanent Marker', cursive;
+            background-color: #ffd700; 
+            color: #a00000; 
+            border: none; 
+            box-shadow: 0 5px #a00000;
+            margin-left: 10px; 
+        }
+        
+        .reset-button {
+            background-color: #27ae60; 
+            color: white;
+            border: 3px solid #1a7a40;
+            box-shadow: 0 5px #1a7a40;
+        }
+
+        .game-button:active {
+            box-shadow: 0 2px var(--shadow-color);
+            transform: translateY(3px);
+        }
+        
+        /* Define shadow colors for active state */
+        .skip-button:active {--shadow-color: #c0392b;}
+        .timer-button:active {--shadow-color: #a00000;}
+        .reset-button:active {--shadow-color: #1a7a40;}
+        
+        /* Whimsical Animation for the Word */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .card-back p {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <h1>Christmas Charades! 🎄</h1>
+
+    <div class="header-area">
+        <div class="scoreboard active-team" id="score1">
+            Team 1: <span id="scoreDisplay1">0</span>
+        </div>
+        
+        <div class="timer-control">
+            <button class="game-button timer-button" id="timerButton" onclick="toggleTimer()">▶</button>
+            <div class="timer-display" id="timerDisplay">
+                1:00
+            </div>
+        </div>
+
+        <div class="scoreboard" id="score2">
+            Team 2: <span id="scoreDisplay2">0</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer" onclick="scoreAndNext()">
+        <div class="card" id="charadesCard">
+            <div class="card-face card-front candy-cane-pattern">
+                <h2>PRESS PLAY TO START!</h2>
+                <span class="instruction-text">Click the card for a point and a new word.</span>
+            </div>
+            <div class="card-face card-back candy-cane-pattern">
+                <p id="wordDisplay">READY?</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button class="game-button skip-button" id="skipButton" disabled onclick="skipWord()">SKIP WORD</button>
+        <button class="game-button reset-button" onclick="resetGame()">RESET GAME</button>
+    </div>
+
+    <script>
+        const words = [
+            "Gingerbread Man", "Sleigh Ride", "Wrapping Gifts", "Mistletoe", 
+            "Ice Skating", "Lighting a Menorah", "The Nutcracker", "Reindeer", 
+            "Making a Snow Angel", "Santa Claus", "Trimming the Tree", "A Caroler", 
+            "Hot Chocolate", "Chimney", "Candy Cane", "Present", "Christmas Tree", 
+            "Elf", "Stocking", "Tinsel", "Snowman", "Jingle Bells", "Hanging Lights",
+            "Eggnog", "Roasting Chestnuts", "A Log Fire", "Skiing", "Snowball Fight",
+            "Mitten", "Scarf", "Hot Cocoa", "Blizzard", "Hibernating Bear", 
+            "Making Cookies", "New Year's Eve", "Winter Solstice", "Frozen Pond",
+            "Shoveling Snow", "Fuzzy Socks", "Gift Card", "Gingerbread House",
+            "Holiday Dinner", "A Fireplace", "Wreath", "Turtleneck Sweater",
+            "A Penguin", "Chasing the Grinch", "North Pole", "Toy Workshop", "Ice Castle"
+        ];
+        
+        let initialShuffle = [...words]; 
+        let wordIndex = 0;
+        let score = { team1: 0, team2: 0 };
+        let currentTeam = 1;
+        let timer;
+        let timeRemaining = 60;
+        let gameActive = false; // True when the timer is RUNNING
+        let roundStarted = false; // True once the card has flipped the first time
+
+        const card = document.getElementById('charadesCard');
+        const wordDisplay = document.getElementById('wordDisplay');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const scoreDisplay1 = document.getElementById('scoreDisplay1');
+        const scoreDisplay2 = document.getElementById('scoreDisplay2');
+        const score1 = document.getElementById('score1');
+        const score2 = document.getElementById('score2');
+        const timerButton = document.getElementById('timerButton');
+        const skipButton = document.getElementById('skipButton');
+
+        // --- Core Word/Score Functions ---
+
+        function shuffleWords() {
+             initialShuffle.sort(() => Math.random() - 0.5);
+        }
+
+        function getNextWord() {
+            if (wordIndex >= initialShuffle.length) {
+                shuffleWords();
+                wordIndex = 0;
+            }
+            const currentWord = initialShuffle[wordIndex];
+            wordIndex++;
+            return currentWord;
+        }
+        
+        function scoreAndNext() {
+            if (!gameActive) return; 
+
+            // 1. Score the point
+            score[`team${currentTeam}`]++;
+            document.getElementById(`scoreDisplay${currentTeam}`).textContent = score[`team${currentTeam}`];
+            
+            // 2. Advance word (blink effect)
+            advanceWord();
+        }
+
+        function skipWord() {
+             if (!gameActive) return;
+             advanceWord();
+        }
+
+        function advanceWord() {
+             wordDisplay.style.opacity = '0';
+             setTimeout(() => {
+                wordDisplay.textContent = getNextWord();
+                wordDisplay.style.opacity = '1';
+            }, 200); 
+        }
+
+
+        // --- Timer/Round Control Functions ---
+
+        function updateTimer() {
+            // Check for game end before updating the timer display
+            if (timeRemaining <= 0) {
+                clearInterval(timer);
+                endRoundSequence();
+                return;
+            }
+
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            timeRemaining--;
+        }
+        
+        function startRound() {
+            gameActive = true;
+            
+            // Reset timer display state
+            timerDisplay.classList.remove('blinking');
+            
+            // If starting a new round (time was 0 or first ever round)
+            if (timeRemaining <= 0 || !roundStarted) {
+                 timeRemaining = 60; // Reset time to 60 seconds
+                 wordDisplay.textContent = getNextWord();
+            }
+            
+            // Ensure the card is flipped to the word side
+            if (!card.classList.contains('flipped')) {
+                 card.classList.add('flipped');
+            }
+            roundStarted = true; // Game has started once
+
+            // Enable skip button
+            skipButton.disabled = false;
+            timerButton.textContent = "⏸"; // Change button to Pause
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function pauseRound() {
+            gameActive = false;
+            clearInterval(timer);
+            
+            // Disable skip button while paused
+            skipButton.disabled = true;
+            timerButton.textContent = "▶"; // Change button to Play/Resume
+            wordDisplay.textContent = "PAUSED"; // Indicate pause state
+        }
+        
+        // Handles the end-of-time sequence (blinking/delay)
+        function endRoundSequence() {
+            gameActive = false;
+            
+            // 1. Set timer to 0:00 and start blinking
+            timerDisplay.textContent = `0:00`;
+            timerDisplay.classList.add('blinking');
+            
+            // 2. Disable game buttons and indicate end
+            skipButton.disabled = true;
+            timerButton.disabled = true; // Disable until the switch is complete
+            timerButton.textContent = ``; 
+            wordDisplay.textContent = `TIME IS UP!`;
+            
+            // 3. Wait 5 seconds before switching to the next team
+            setTimeout(() => {
+                // Stop blinking
+                timerDisplay.classList.remove('blinking');
+                
+                // Switch team and update highlight
+                currentTeam = currentTeam === 1 ? 2 : 1;
+                highlightTeam();
+                
+                // Reset UI for the new team's round
+                timeRemaining = 60;
+                timerDisplay.textContent = `1:00`;
+                wordDisplay.textContent = `Team ${currentTeam}'s turn. Press Play.`;
+                timerButton.disabled = false;
+                timerButton.textContent = "▶";
+
+                // Flash the card briefly to indicate round end/switch
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 100);
+
+            }, 5000); // 5000 milliseconds delay
+        }
+
+        function toggleTimer() {
+            if (gameActive) {
+                // If running, pause it (no team switch)
+                pauseRound();
+            } else {
+                // If paused/stopped, start it (continues or starts new round)
+                togglePlayButtonState();
+            }
+        }
+        
+        function togglePlayButtonState() {
+             // This function handles the logic for clicking the Play button when the game is NOT active
+             if (timeRemaining > 0 && roundStarted) {
+                // Case 1: Paused game
+                startRound();
+             } else {
+                // Case 2: New round or game just ended
+                startRound();
+             }
+        }
+
+        function highlightTeam() {
+            score1.classList.remove('active-team');
+            score2.classList.remove('active-team');
+            if (currentTeam === 1) {
+                score1.classList.add('active-team');
+            } else {
+                score2.classList.add('active-team');
+            }
+        }
+        
+        function resetGame() {
+            clearInterval(timer);
+            gameActive = false;
+            roundStarted = false; 
+            
+            // Reset scores
+            score = { team1: 0, team2: 0 };
+            scoreDisplay1.textContent = 0;
+            scoreDisplay2.textContent = 0;
+            
+            // Reset team and words
+            currentTeam = 1;
+            wordIndex = 0;
+            shuffleWords();
+            highlightTeam();
+            
+            // Reset UI
+            timeRemaining = 60;
+            timerDisplay.textContent = `1:00`;
+            wordDisplay.textContent = "READY?";
+            card.classList.remove('flipped');
+            
+            // Reset buttons
+            skipButton.disabled = true;
+            timerButton.disabled = false;
+            timerButton.textContent = "▶";
+            timerDisplay.classList.remove('blinking');
+            
+            alert("Game Reset! Press the play button to start round 1!");
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            shuffleWords();
+            highlightTeam();
+        });
+    </script>
+</body>
+</html>

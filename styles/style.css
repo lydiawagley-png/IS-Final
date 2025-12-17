@@ -1,0 +1,120 @@
+/* --- General Page Styles (No change needed) --- */
+:root {
+    --pastel-pink: #ffc4d6;       
+    --pastel-green: #b2f7b2;      
+    --pastel-blue: #c4e8ff;       
+    --pastel-yellow: #fff8e1;     
+    --pastel-red: #ff9999;        
+    --cream-white: #fefefe;
+    --text-color: #3f1e1e;        
+    --accent-color: #a0c4ff;
+}
+/* ... (Other general styles unchanged) ... */
+
+/* --- Header Styles (No change needed) --- */
+/* ... (unchanged) ... */
+
+/* --- Main Layout Container (No change needed) --- */
+.container {
+    display: grid;
+    grid-template-columns: 1.5fr 3.5fr; 
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* --- Navigation Styles (No change needed) --- */
+/* ... (unchanged) ... */
+
+/* --- Article and Aside Styles --- */
+.main-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr; 
+    gap: 30px;
+}
+
+.article-box, .aside-box {
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Cozy Fireplace Box (Wide) */
+.article-box { 
+    background-color: var(--pastel-green); 
+    border: 4px solid var(--accent-color); 
+    grid-column: 1 / 2;
+}
+
+/* Links Box (Narrow) */
+.aside-box.link-box {
+    background-color: var(--pastel-blue); 
+    border: 6px double var(--pastel-pink); 
+    grid-column: 2 / 3;
+    text-align: center;
+    padding: 30px 15px;
+    background: linear-gradient(145deg, var(--pastel-blue), var(--accent-color));
+}
+
+.aside-box.link-box h3, .aside-box.link-box p {
+    color: var(--text-color); 
+    text-shadow: 1px 1px 2px var(--cream-white);
+}
+
+.aside-box.link-box .footer-links {
+    flex-direction: column; 
+    gap: 15px; 
+    margin-top: 20px;
+}
+
+/* Styling the individual links within the aside box - FIX HERE */
+.aside-box.link-box .footer-link {
+    width: 100%; 
+    max-width: 300px; 
+    margin: 10px auto; 
+    
+    /* FIX: Revert to column to stack emoji over text */
+    flex-direction: column; 
+    justify-content: center; /* Center content horizontally */
+    align-items: center;
+    
+    font-size: 1.4rem; /* Make text even larger */
+    padding: 20px 25px; /* Increase padding for a larger click area */
+    text-align: center; /* Center the text */
+}
+
+.aside-box.link-box .footer-link .icon {
+    /* FIX: Dramatically increase icon size and add vertical margin */
+    font-size: 3.5rem; 
+    margin-bottom: 10px; 
+    margin-right: 0; /* Remove horizontal margin */
+    line-height: 1;
+}
+
+/* --- Advent Calendar Section (No change needed) --- */
+/* ... (unchanged) ... */
+
+/* --- Small Copyright Footer (No change needed) --- */
+/* ... (unchanged) ... */
+
+
+/* --- Responsive Design for Smaller Screens --- */
+@media (max-width: 950px) {
+    /* ... (Other media query styles unchanged) ... */
+    
+    .aside-box.link-box .footer-links {
+        flex-direction: column; 
+        gap: 10px;
+    }
+    
+    .aside-box.link-box .footer-link {
+        width: 100%; 
+        max-width: 90%; 
+        margin: 5px auto;
+        justify-content: center;
+    }
+}
+
+
+
+
+
